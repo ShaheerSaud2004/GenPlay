@@ -1,210 +1,75 @@
-# GenPlay Marketing Site
+# 🎮 GenPlay
 
-A modern, fast marketing site for GenPlay - a Unity editor tool that turns text prompts into playable scenes.
+**Transform your game ideas into reality with AI-powered Unity scene generation**
 
-## 🚀 Features
+[![Website](https://img.shields.io/badge/Website-Live-4ADE80?style=for-the-badge&logo=vercel)](https://shaheersaud2004.github.io/GenPlay/)
+[![Demo](https://img.shields.io/badge/Demo-Watch-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/5LNEtzQtoMw)
 
-- **Next.js 14** with App Router and TypeScript
-- **TailwindCSS** for styling with custom brand colors
-- **Responsive design** that works on all devices
-- **Accessible components** with proper focus management
-- **SEO optimized** with metadata, sitemap, and robots.txt
-- **Analytics ready** with Vercel Analytics and Plausible support
-- **Waitlist functionality** with CSV storage (Vercel Blob) or email notifications (Resend)
-- **Video lightbox** for demo presentation
-- **Toast notifications** for user feedback
+## ✨ What is GenPlay?
 
-## 🎨 Design System
+GenPlay is an innovative Unity editor tool that converts simple text prompts into fully playable game scenes in seconds. No coding required - just describe your vision and watch it come to life.
 
-- **Background**: `#0f1220` (deep navy)
-- **Card**: `#171A2B`
-- **Accent**: `#4ADE80` (green)
-- **Accent 2**: `#60A5FA` (blue)
-- **Typography**: Inter font family
-- **Components**: Rounded corners, subtle animations, dark theme
+### 🚀 Key Features
 
-## 📁 Project Structure
+- **⏱️ Save 100+ hours** of development time with instant AI generation
+- **🚫 No coding required** - just describe your vision in plain English  
+- **🎮 Unity-ready scenes** - import directly into Unity with full compatibility
+- **⚡ Instant prototyping** - from idea to playable game in seconds
 
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/waitlist/      # API endpoint for waitlist
-│   ├── demo/              # Demo page
-│   ├── roadmap/           # Product roadmap
-│   ├── privacy/           # Privacy policy
-│   ├── layout.tsx         # Root layout with metadata
-│   ├── page.tsx           # Homepage
-│   ├── sitemap.ts         # Dynamic sitemap
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   ├── Header.tsx        # Site header with navigation
-│   ├── Hero.tsx          # Landing page hero section
-│   ├── VideoLightbox.tsx # Video modal component
-│   ├── WaitlistModal.tsx # Waitlist signup form
-│   └── ...               # Other page components
-├── lib/                  # Utility functions
-├── types/                # TypeScript type definitions
-public/                   # Static assets
-├── logo.svg             # GenPlay logo
-├── demo.mp4             # Demo video (replace with actual)
-├── demo-thumbnail.jpg   # Video thumbnail (replace with actual)
-└── og.png              # OpenGraph image (replace with actual)
-```
+## 🎯 Perfect For
 
-## 🛠 Setup & Development
+- **Game Developers** - Rapid prototyping and scene generation
+- **Educators** - Teaching game development concepts
+- **Students** - Learning Unity without coding barriers
+- **Creative Professionals** - Quick idea visualization
 
-### Prerequisites
+## 🌐 Live Website
 
-- Node.js 18+ and npm/pnpm
-- (Optional) Vercel account for deployment
-- (Optional) Resend account for email notifications
-- (Optional) Plausible account for privacy-focused analytics
+**Visit our website:** [shaheersaud2004.github.io/GenPlay](https://shaheersaud2004.github.io/GenPlay/)
 
-### Installation
+See GenPlay in action, learn how it works, and join our beta waitlist to be among the first to experience the future of game development.
 
-1. **Clone and install dependencies**
-   ```bash
-   cd GenPlay
-   npm install
-   # or
-   pnpm install
-   ```
+## 🎬 Demo
 
-2. **Environment setup**
-   ```bash
-   cp env.example .env.local
-   ```
-   
-   Edit `.env.local` with your actual values:
-   - `PLAUSIBLE_DOMAIN`: Your domain for Plausible analytics
-   - `BLOB_READ_WRITE_TOKEN`: Vercel Blob token for CSV storage
-   - `RESEND_API_KEY`: Resend API key for email notifications
-   - `NOTIFY_EMAIL`: Email to receive waitlist notifications
+Watch our demo video to see how GenPlay transforms text prompts into playable Unity scenes:
 
-3. **Add your assets** (replace placeholders):
-   - `public/demo.mp4`: Your actual demo video
-   - `public/demo-thumbnail.jpg`: Video thumbnail image
-   - `public/og.png`: OpenGraph social media image (1200x630)
-   - `src/components/VideoLightbox.tsx`: Update YouTube video ID
+[![GenPlay Demo](https://img.youtube.com/vi/5LNEtzQtoMw/maxresdefault.jpg)](https://youtu.be/5LNEtzQtoMw)
 
-4. **Run development server**
-   ```bash
-   npm run dev
-   # or
-   pnpm dev
-   ```
+## 🛠️ Tech Stack
 
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Frontend:** Next.js 14, React, TypeScript
+- **Styling:** Tailwind CSS with custom design system
+- **Deployment:** GitHub Pages
+- **AI Integration:** Custom Unity scene generation engine
 
-## 📤 Deployment
+## 🚀 Getting Started
 
-### Vercel (Recommended)
+1. **Visit our website** at [shaheersaud2004.github.io/GenPlay](https://shaheersaud2004.github.io/GenPlay/)
+2. **Watch the demo** to see GenPlay in action
+3. **Join the beta waitlist** to get early access
+4. **Stay updated** on our development progress
 
-1. **Connect to Vercel**
-   ```bash
-   npx vercel
-   ```
+## 📈 Roadmap
 
-2. **Set environment variables** in Vercel dashboard:
-   - Add all variables from your `.env.local`
-   - Ensure `BLOB_READ_WRITE_TOKEN` is set for waitlist functionality
+- ✅ **Foundation** - Core AI engine and Unity integration
+- 🔄 **Beta Testing** - Limited beta with select users  
+- 🔜 **Public Release** - Full platform launch
+- 🔮 **Advanced Features** - Enhanced AI capabilities and new game types
 
-3. **Custom domain** (optional):
-   - Add your domain in Vercel dashboard
-   - Update `baseUrl` in `src/app/sitemap.ts`
-   - Update OpenGraph URLs in `src/app/layout.tsx`
+## 🤝 Join the Community
 
-4. **Deploy**
-   ```bash
-   npx vercel --prod
-   ```
+Ready to revolutionize your game development workflow?
 
-### Other Platforms
-
-The site is a standard Next.js application and can be deployed to:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- Any platform supporting Node.js
-
-Ensure environment variables are set and build command is `npm run build`.
-
-## 🔧 Configuration
-
-### Analytics
-
-- **Vercel Analytics**: Automatically enabled when deployed to Vercel
-- **Plausible**: Set `PLAUSIBLE_DOMAIN` environment variable
-
-### Waitlist Storage
-
-Choose one or both methods:
-
-1. **Vercel Blob** (CSV storage):
-   - Set `BLOB_READ_WRITE_TOKEN` in environment
-   - Data stored as CSV in Vercel Blob storage
-
-2. **Email notifications**:
-   - Set `RESEND_API_KEY` and `NOTIFY_EMAIL`
-   - Receives email for each signup
-
-### Video Configuration
-
-In `src/components/VideoLightbox.tsx`:
-- **YouTube**: Update `YOUTUBE_VIDEO_ID` constant
-- **Local video**: Uncomment video element, comment out iframe
-
-## 📝 Content Updates
-
-### Copy Changes
-- Edit text directly in component files
-- Main copy is in `src/components/Hero.tsx`
-- Feature descriptions in `src/components/FeatureCards.tsx`
-
-### Roadmap Updates
-- Edit `roadmapItems` array in `src/app/roadmap/page.tsx`
-- Add changelog entries to `changelog` array
-
-### SEO
-- Update metadata in `src/app/layout.tsx`
-- Modify sitemap in `src/app/sitemap.ts`
-
-## 🧪 Testing
-
-```bash
-# Type checking
-npm run type-check
-
-# Linting
-npm run lint
-
-# Build test
-npm run build
-```
-
-## 📊 Performance
-
-The site is optimized for:
-- **Lighthouse score**: 95+ on Performance, SEO, Best Practices
-- **Accessibility**: 90+ score
-- **Core Web Vitals**: All metrics in green
-- **Bundle size**: Minimal dependencies, optimized images
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-Private - All rights reserved.
+- 🌐 **Website:** [shaheersaud2004.github.io/GenPlay](https://shaheersaud2004.github.io/GenPlay/)
+- 🎬 **Demo:** [YouTube](https://youtu.be/5LNEtzQtoMw)
+- 📧 **Beta Access:** Join our waitlist on the website
 
 ---
 
-**Need help?** Open an issue or contact the development team.
+<div align="center">
 
-**Ready to deploy?** Make sure to replace all placeholder assets and update the YouTube video ID!
+**GenPlay - Where Ideas Become Games**
+
+*Developed with ❤️ for the game development community*
+
+</div>
