@@ -84,60 +84,40 @@ export async function POST(request: NextRequest) {
     
     if (process.env.BLOB_READ_WRITE_TOKEN && process.env.BLOB_READ_WRITE_TOKEN !== 'placeholder_for_vercel_blob') {
       try {
-        // Create CSV row
+        // Simple approach: Store each signup as individual JSON file and also maintain a CSV
+        const filename = `waitlist/${waitlistEntry.timestamp}-${waitlistEntry.email.replace(/[^a-zA-Z0-9]/g, '_')}.json`
+        
+        // Store individual signup
+        const { url: jsonUrl } = await put(filename, JSON.stringify(waitlistEntry, null, 2), { 
+          access: 'public' 
+        })
+        
+        // Also store in simple CSV format (overwrite each time - simpler)
         const csvRow = [
           waitlistEntry.timestamp,
           waitlistEntry.email,
-          waitlistEntry.name,
-          waitlistEntry.role,
-          waitlistEntry.engine,
-          waitlistEntry.experience,
-          waitlistEntry.useCase,
-          waitlistEntry.ip,
-        ].map(field => `"${String(field).replace(/"/g, '""')}"`)
-        .join(',')
-
-        // Try to get existing CSV content
-        let csvContent = ''
-        try {
-          const { url } = await put('genplay-waitlist.csv', '', { access: 'public', addRandomSuffix: false })
-          const response = await fetch(url)
-          if (response.ok) {
-            csvContent = await response.text()
-          }
-        } catch {
-          // File doesn't exist yet, will create with headers
-        }
-
-        // If file is empty or doesn't exist, add headers
-        if (!csvContent.trim()) {
-          const headers = [
-            'timestamp',
-            'email', 
-            'name',
-            'role',
-            'engine',
-            'experience',
-            'useCase',
-            'ip'
-          ].map(h => `"${h}"`).join(',')
-          csvContent = headers + '\n'
-        }
-
-        // Append new row
-        csvContent += csvRow + '\n'
-
-        await put('genplay-waitlist.csv', csvContent, {
-          access: 'public',
-          addRandomSuffix: false,
-        })
+          waitlistEntry.name || '',
+          waitlistEntry.role || '',
+          waitlistEntry.engine || '',
+          waitlistEntry.experience || '',
+          waitlistEntry.useCase || '',
+          waitlistEntry.ip
+        ].join(',')
+        
+        const { url: csvUrl } = await put('genplay-waitlist-latest.csv', 
+          `timestamp,email,name,role,engine,experience,useCase,ip\n${csvRow}`, 
+          { access: 'public' }
+        )
 
         dataStored = true
-        console.log('✅ Waitlist data stored to CSV')
+        console.log('✅ Waitlist data stored to Blob:', { jsonUrl, csvUrl })
       } catch (blobError) {
         console.error('❌ Blob storage error:', blobError)
-        // Continue to try email storage
+        storageResults.push(`Blob error: ${blobError.message}`)
       }
+    } else {
+      console.log('❌ No Blob token available')
+      storageResults.push('No Blob token')
     }
 
     // Always try to send emails (regardless of blob storage)
@@ -153,7 +133,8 @@ export async function POST(request: NextRequest) {
         const resend = new Resend(process.env.RESEND_API_KEY)
         
         // Send confirmation email to the user
-        await resend.emails.send({
+        console.log('📧 Sending confirmation email to:', waitlistEntry.email)
+        const confirmationResult = await resend.emails.send({
           from: 'GenPlay <onboarding@resend.dev>', // Using Resend's default domain
           to: [waitlistEntry.email],
           subject: '🎮 Welcome to GenPlay Beta Waitlist!',
@@ -196,8 +177,11 @@ export async function POST(request: NextRequest) {
           `,
         })
 
+        console.log('📧 Confirmation email result:', confirmationResult)
+        
         // Send notification email to you
-        await resend.emails.send({
+        console.log('📧 Sending notification email to:', process.env.NOTIFY_EMAIL)
+        const notificationResult = await resend.emails.send({
           from: 'GenPlay <onboarding@resend.dev>', // Using Resend's default domain
           to: [process.env.NOTIFY_EMAIL],
           subject: '🎯 New GenPlay Waitlist Signup',
@@ -222,11 +206,17 @@ export async function POST(request: NextRequest) {
           `,
         })
 
+        console.log('📧 Notification email result:', notificationResult)
+        
         emailsSent = true
-        console.log('✅ Confirmation and notification emails sent')
+        console.log('✅ Both confirmation and notification emails sent successfully')
       } catch (emailError) {
         console.error('❌ Email error:', emailError)
+        storageResults.push(`Email error: ${emailError.message}`)
       }
+    } else {
+      console.log('❌ No email configuration available')
+      storageResults.push('No email config')
     }
 
     // Return appropriate response based on what succeeded
