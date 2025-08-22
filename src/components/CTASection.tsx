@@ -2,7 +2,7 @@ import { Button } from './ui/Button'
 import { Sparkles } from 'lucide-react'
 
 interface CTASectionProps {
-  onWaitlistOpen: () => void
+  onWaitlistOpen?: () => void
 }
 
 export function CTASection({ onWaitlistOpen }: CTASectionProps) {
@@ -28,7 +28,7 @@ export function CTASection({ onWaitlistOpen }: CTASectionProps) {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Button 
-              onClick={onWaitlistOpen} 
+              onClick={onWaitlistOpen || (() => {})} 
               size="lg" 
               className="text-lg px-10 py-4 bg-accent hover:bg-green-400 text-background font-semibold shadow-2xl hover:shadow-accent/30 transform hover:scale-105 transition-all duration-300 border-2 border-accent hover:border-green-400"
             >

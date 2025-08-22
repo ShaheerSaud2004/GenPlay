@@ -9,7 +9,7 @@ import { Button } from './ui/Button'
 import { cn } from '@/lib/utils'
 
 interface HeaderProps {
-  onWaitlistOpen: () => void
+  onWaitlistOpen?: () => void
 }
 
 export function Header({ onWaitlistOpen }: HeaderProps) {
@@ -86,7 +86,7 @@ export function Header({ onWaitlistOpen }: HeaderProps) {
               )
             ))}
             <Button 
-              onClick={onWaitlistOpen} 
+              onClick={onWaitlistOpen || (() => {})} 
               size="md"
               className="px-6 py-2 bg-accent hover:bg-green-400 text-background font-medium min-w-[120px]"
             >
@@ -142,7 +142,7 @@ export function Header({ onWaitlistOpen }: HeaderProps) {
               )
             ))}
             <Button 
-              onClick={onWaitlistOpen} 
+              onClick={onWaitlistOpen || (() => {})} 
               size="md" 
               className="self-start px-6 py-2 bg-accent hover:bg-green-400 text-background font-medium min-w-[120px]"
             >

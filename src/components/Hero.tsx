@@ -5,8 +5,8 @@ import { Button } from './ui/Button'
 import { Badge } from './ui/Badge'
 
 interface HeroProps {
-  onWaitlistOpen: () => void
-  onVideoOpen: () => void
+  onWaitlistOpen?: () => void
+  onVideoOpen?: () => void
 }
 
 export function Hero({ onWaitlistOpen, onVideoOpen }: HeroProps) {
@@ -40,11 +40,11 @@ export function Hero({ onWaitlistOpen, onVideoOpen }: HeroProps) {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-          <Button onClick={onWaitlistOpen} size="lg" className="text-lg px-8 py-4">
+          <Button onClick={onWaitlistOpen || (() => {})} size="lg" className="text-lg px-8 py-4">
             Join the Beta
           </Button>
           <Button 
-            onClick={onVideoOpen} 
+            onClick={onVideoOpen || (() => {})} 
             variant="secondary" 
             size="lg" 
             className="text-lg px-8 py-4 group"
