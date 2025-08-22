@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Modal } from './ui/Modal'
 import { Button } from './ui/Button'
-import { Mail, User, Briefcase, Gamepad2, Code, Sparkles } from 'lucide-react'
+import { Mail, User, Briefcase, Gamepad2, Code, Sparkles, ArrowLeft } from 'lucide-react'
 import { validateEmail } from '@/lib/utils'
 import type { WaitlistFormData, ApiResponse } from '@/types'
 
@@ -88,7 +88,16 @@ export function WaitlistModal({ isOpen, onClose, onSuccess, onError }: WaitlistM
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-2xl">
-      <div className="text-center mb-6">
+      <div className="relative text-center mb-6">
+        {/* Back button */}
+        <button
+          onClick={onClose}
+          className="absolute left-0 top-0 p-2 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-200 group"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="h-5 w-5 group-hover:scale-110 transition-transform" />
+        </button>
+        
         <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-2xl mb-4">
           <Sparkles className="h-8 w-8 text-accent" />
         </div>
