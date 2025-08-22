@@ -164,7 +164,7 @@ export default function RoadmapPage() {
                             <div className="mx-8 animate-slide-up" style={{ animationDelay: `${index * 0.2 + 0.1}s` }}>
                               <ArrowRight 
                                 className={`h-8 w-8 ${
-                                  phase.status === 'completed' || phase.status === 'in-progress' 
+                                  phase.status === 'in-progress' 
                                     ? 'text-accent' 
                                     : 'text-slate-600'
                                 } transition-colors duration-500`}
