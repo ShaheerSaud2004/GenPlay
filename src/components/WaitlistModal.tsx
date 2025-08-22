@@ -94,7 +94,7 @@ export function WaitlistModal({ isOpen, onClose, onSuccess, onError }: WaitlistM
         </div>
         <h2 className="text-2xl font-bold text-white mb-2">Join the Beta</h2>
         <p className="text-slate-300 text-sm">
-          We'll only email about the beta. Unsubscribe anytime.
+          We&apos;ll only email about the beta. Unsubscribe anytime.
         </p>
       </div>
       

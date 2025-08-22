@@ -61,7 +61,7 @@ export default function PrivacyPage() {
                 <section>
                   <h2 className="text-2xl font-semibold text-white mb-4">Data Storage</h2>
                   <p className="text-slate-300 leading-relaxed">
-                    Your waitlist information is securely stored using Vercel's infrastructure. 
+                    Your waitlist information is securely stored using Vercel&apos;s infrastructure. 
                     We implement industry-standard security measures to protect your data.
                   </p>
                 </section>

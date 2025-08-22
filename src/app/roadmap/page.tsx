@@ -121,7 +121,7 @@ export default function RoadmapPage() {
               </h1>
               
               <p className="text-xl sm:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                From prompt to playable game in seconds. Here's how we're revolutionizing 
+                From prompt to playable game in seconds. Here&apos;s how we&apos;re revolutionizing 
                 game development for everyone.
               </p>
             </div>
