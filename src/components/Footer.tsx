@@ -7,11 +7,44 @@ export function Footer() {
 
   return (
     <footer className="border-t border-slate-800 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-12">
+        {/* Mobile Layout - Compact horizontal */}
+        <div className="block sm:hidden">
+          <div className="flex flex-col space-y-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2 justify-center">
+              <div className="relative w-6 h-6">
+                <Image
+                  src="/genplay-logo.png"
+                  alt="GenPlay Logo"
+                  width={24}
+                  height={24}
+                  className="rounded-lg"
+                />
+              </div>
+              <span className="text-lg font-bold text-white">GenPlay</span>
+            </Link>
+            
+            {/* Horizontal Links */}
+            <div className="flex justify-center items-center space-x-6 text-sm">
+              <Link href="#demo" className="text-slate-400 hover:text-accent transition-colors">
+                Demo
+              </Link>
+              <Link href="/roadmap" className="text-slate-400 hover:text-accent transition-colors">
+                Roadmap
+              </Link>
+              <Link href="/privacy" className="text-slate-400 hover:text-accent transition-colors">
+                Privacy
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Logo and description */}
-          <div className="col-span-1 sm:col-span-2 md:col-span-2">
-            <Link href="/" className="flex items-center space-x-3 mb-3 sm:mb-4">
+          <div className="col-span-2">
+            <Link href="/" className="flex items-center space-x-3 mb-4">
               <div className="relative w-8 h-8">
                 <Image
                   src="/genplay-logo.png"
@@ -31,7 +64,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base">Product</h3>
+            <h3 className="text-white font-medium mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="#demo" className="text-slate-400 hover:text-accent transition-colors text-sm">
@@ -48,7 +81,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-white font-medium mb-3 sm:mb-4 text-sm sm:text-base">Legal</h3>
+            <h3 className="text-white font-medium mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/privacy" className="text-slate-400 hover:text-accent transition-colors text-sm">
@@ -59,12 +92,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-8 pt-4 sm:pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
-          <p className="text-slate-400 text-xs sm:text-sm">
+        <div className="mt-4 sm:mt-8 pt-3 sm:pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+          <p className="text-slate-400 text-xs sm:text-sm order-2 sm:order-1">
             © {currentYear} GenPlay<span className="hidden sm:inline">. Built by Shaheer</span>.
           </p>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 order-1 sm:order-2">
             <a
               href="https://twitter.com/genplay"
               target="_blank"
