@@ -65,7 +65,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
         ref={modalRef}
         tabIndex={-1}
         className={cn(
-          'relative w-full max-w-md max-h-[95vh] overflow-y-auto bg-card border border-slate-700 rounded-2xl shadow-2xl animate-slide-up',
+          'relative w-full max-w-2xl max-h-[95vh] overflow-y-auto bg-card border border-slate-700 rounded-2xl shadow-2xl animate-slide-up',
           className
         )}
       >
