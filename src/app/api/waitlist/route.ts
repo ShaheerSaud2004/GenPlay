@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: 'shaheersaud2004@gmail.com',
+            user: 'genplay.info@gmail.com',
             pass: process.env.apppassword
           }
         })
@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
         `
 
         const userMailOptions = {
-          from: '"GenPlay" <shaheersaud2004@gmail.com>',
+          from: '"GenPlay" <genplay.info@gmail.com>',
           to: waitlistEntry.email,
           subject: '🎮 Welcome to GenPlay Beta Waitlist!',
           html: userEmailHtml
@@ -213,8 +213,8 @@ export async function POST(request: NextRequest) {
         `
 
         const adminMailOptions = {
-          from: '"GenPlay Notifications" <shaheersaud2004@gmail.com>',
-          to: 'shaheersaud2004@gmail.com',
+          from: '"GenPlay Notifications" <genplay.info@gmail.com>',
+          to: 'genplay.info@gmail.com',
           subject: '🎯 New GenPlay Waitlist Signup',
           html: adminEmailHtml
         }
