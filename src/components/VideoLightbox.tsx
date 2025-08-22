@@ -70,8 +70,8 @@ export function VideoLightbox({ isOpen, onClose }: VideoLightboxProps) {
             Watch how a simple text prompt becomes a fully playable Unity scene in seconds.
           </p>
           
-          {/* Feature highlights - Compact */}
-          <div className="flex justify-center items-center gap-6 mt-4">
+          {/* Feature highlights - Compact - Hide on mobile */}
+          <div className="hidden sm:flex justify-center items-center gap-6 mt-4">
             <div className="flex items-center gap-1.5 text-slate-300">
               <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
               <span className="text-xs">Instant Generation</span>
