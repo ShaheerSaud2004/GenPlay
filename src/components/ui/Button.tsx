@@ -12,20 +12,24 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
+    const sizeClasses = {
+      sm: 'px-4 py-2 text-sm',
+      md: 'px-6 py-3 text-base',
+      lg: 'px-8 py-4 text-lg'
+    }[size]
+    
+    const variantClasses = {
+      primary: 'bg-accent hover:bg-green-400 text-background',
+      secondary: 'border border-slate-600 hover:border-accent text-slate-300 hover:text-accent bg-transparent',
+      ghost: 'text-slate-300 hover:text-accent hover:bg-slate-800/50'
+    }[variant]
+
     return (
       <button
         className={cn(
           'inline-flex items-center justify-center font-medium rounded-2xl transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed',
-          {
-            'px-4 py-2 text-sm': size === 'sm',
-            'px-6 py-3 text-base': size === 'md',
-            'px-8 py-4 text-lg': size === 'lg',
-          },
-          {
-            'bg-accent hover:bg-green-400 text-background': variant === 'primary',
-            'border border-slate-600 hover:border-accent text-slate-300 hover:text-accent bg-transparent': variant === 'secondary',
-            'text-slate-300 hover:text-accent hover:bg-slate-800/50': variant === 'ghost',
-          },
+          sizeClasses,
+          variantClasses,
           className
         )}
         disabled={disabled || loading}
