@@ -124,31 +124,23 @@ export async function POST(request: NextRequest) {
     let emailsSent = false
     const emailResults = []
     
-    // Method 1: Try Formspree (https://formspree.io/f/xdkdqdrp)
+    // Method 1: Try Formspree for both user confirmation and admin notification
     try {
-      console.log('📧 Trying Formspree for confirmation email to:', waitlistEntry.email)
+      // Send confirmation email to the user
+      console.log('📧 Sending Formspree confirmation email to user:', waitlistEntry.email)
       
-      const formspreeResponse = await fetch('https://formspree.io/f/xdkdqdrp', {
+      const userConfirmationResponse = await fetch('https://formspree.io/f/xdkdqdrp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          _to: waitlistEntry.email,
+          _subject: '🎮 Welcome to GenPlay Beta Waitlist!',
+          _template: 'basic',
+          name: waitlistEntry.name || 'there',
           email: waitlistEntry.email,
-          name: waitlistEntry.name,
-          subject: '🎮 Welcome to GenPlay Beta Waitlist!',
-          message: `New signup details:
-Email: ${waitlistEntry.email}
-Name: ${waitlistEntry.name || 'Not provided'}
-Role: ${waitlistEntry.role || 'Not provided'}
-Engine: ${waitlistEntry.engine || 'Not provided'}
-Experience: ${waitlistEntry.experience || 'Not provided'}/10
-Use Case: ${waitlistEntry.useCase || 'Not provided'}
-Timestamp: ${waitlistEntry.timestamp}`,
-          _replyto: waitlistEntry.email,
-          _subject: 'New GenPlay Waitlist Signup',
-          _next: 'https://genplay.dev',
-          _confirmation: `Hi ${waitlistEntry.name || 'there'}!
+          message: `Hi ${waitlistEntry.name || 'there'}!
 
 Thanks for joining the GenPlay beta waitlist! 🚀
 
@@ -165,20 +157,54 @@ ${waitlistEntry.role ? `Role: ${waitlistEntry.role}` : ''}
 ${waitlistEntry.engine ? `Engine: ${waitlistEntry.engine}` : ''}
 ${waitlistEntry.experience ? `Experience: ${waitlistEntry.experience}/10` : ''}
 
-Questions? Reply to this email!
+Questions? Reply to this email or contact us at your-email@genplay.dev
 
 Best regards,
-The GenPlay Team`
+The GenPlay Team`,
+          _replyto: 'noreply@genplay.dev'
         })
       })
 
-      if (formspreeResponse.ok) {
+      // Send notification email to admin (you)
+      console.log('📧 Sending Formspree notification email to admin')
+      
+      const adminNotificationResponse = await fetch('https://formspree.io/f/xdkdqdrp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: '🎯 New GenPlay Waitlist Signup',
+          email: waitlistEntry.email,
+          name: waitlistEntry.name || 'Not provided',
+          message: `New signup details:
+
+Email: ${waitlistEntry.email}
+Name: ${waitlistEntry.name || 'Not provided'}
+Role: ${waitlistEntry.role || 'Not provided'}
+Engine: ${waitlistEntry.engine || 'Not provided'}
+Experience: ${waitlistEntry.experience || 'Not provided'}/10
+Use Case: ${waitlistEntry.useCase || 'Not provided'}
+Timestamp: ${waitlistEntry.timestamp}
+
+A confirmation email was automatically sent to the user.`,
+          _replyto: waitlistEntry.email
+        })
+      })
+
+      const userSuccess = userConfirmationResponse.ok
+      const adminSuccess = adminNotificationResponse.ok
+
+      if (userSuccess || adminSuccess) {
         emailsSent = true
-        emailResults.push('Formspree: Success')
-        console.log('✅ Formspree emails sent successfully')
+        const results = []
+        if (userSuccess) results.push('User confirmation')
+        if (adminSuccess) results.push('Admin notification')
+        emailResults.push(`Formspree: ${results.join(' + ')}`)
+        console.log('✅ Formspree emails sent:', results.join(' + '))
       } else {
-        emailResults.push(`Formspree: ${formspreeResponse.status} ${formspreeResponse.statusText}`)
-        console.log('❌ Formspree error:', formspreeResponse.status, formspreeResponse.statusText)
+        emailResults.push(`Formspree: User ${userConfirmationResponse.status}, Admin ${adminNotificationResponse.status}`)
+        console.log('❌ Formspree errors - User:', userConfirmationResponse.status, 'Admin:', adminNotificationResponse.status)
       }
     } catch (formspreeError) {
       emailResults.push(`Formspree: ${formspreeError instanceof Error ? formspreeError.message : String(formspreeError)}`)
