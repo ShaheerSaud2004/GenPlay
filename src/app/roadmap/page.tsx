@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { WaitlistModal } from '@/components/WaitlistModal'
@@ -268,7 +268,7 @@ interface RoadmapPhaseProps {
     title: string
     period: string
     status: 'completed' | 'in-progress' | 'planned' | 'future'
-    icon: any
+    icon: React.ComponentType<any>
     color: string
     description: string
     features: string[]
@@ -285,7 +285,7 @@ interface HorizontalRoadmapCardProps {
     title: string
     period: string
     status: 'completed' | 'in-progress' | 'planned' | 'future'
-    icon: any
+    icon: React.ComponentType<any>
     color: string
     description: string
     features: string[]
@@ -392,7 +392,7 @@ interface HorizontalRoadmapPhaseProps {
     title: string
     period: string
     status: 'completed' | 'in-progress' | 'planned' | 'future'
-    icon: any
+    icon: React.ComponentType<any>
     color: string
     description: string
     features: string[]
