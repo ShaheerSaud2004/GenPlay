@@ -46,33 +46,23 @@ export function WaitlistModal({ isOpen, onClose, onSuccess, onError }: WaitlistM
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // For static site, simulate success for now
+      // TODO: Integrate with a service like Formspree, Netlify Forms, or another solution
+      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API delay
+      
+      onSuccess('Thanks for your interest! We\'ll keep you updated on the beta release.')
+      onClose()
+      // Reset form
+      setFormData({
+        email: '',
+        name: '',
+        role: undefined,
+        engine: undefined,
+        experience: undefined,
+        useCase: '',
       })
-
-      const result: ApiResponse = await response.json()
-
-      if (result.ok) {
-        onSuccess('Thanks for joining! We\'ll email you when the beta is ready.')
-        onClose()
-        // Reset form
-        setFormData({
-          email: '',
-          name: '',
-          role: undefined,
-          engine: undefined,
-          experience: undefined,
-          useCase: '',
-        })
-      } else {
-        onError(result.error || 'Something went wrong. Please try again.')
-      }
     } catch (error) {
-      onError('Network error. Please check your connection and try again.')
+      onError('Something went wrong. Please try again later.')
     } finally {
       setIsLoading(false)
     }
