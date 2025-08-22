@@ -120,15 +120,79 @@ export async function POST(request: NextRequest) {
       storageResults.push('No Blob token')
     }
 
-    // Always try to send emails (regardless of blob storage)
+    // Try to send emails using multiple methods
     let emailsSent = false
-    console.log('📧 Checking email setup...', { 
+    const emailResults = []
+    
+    // Method 1: Try Formspree (https://formspree.io/f/xdkdqdrp)
+    try {
+      console.log('📧 Trying Formspree for confirmation email to:', waitlistEntry.email)
+      
+      const formspreeResponse = await fetch('https://formspree.io/f/xdkdqdrp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: waitlistEntry.email,
+          name: waitlistEntry.name,
+          subject: '🎮 Welcome to GenPlay Beta Waitlist!',
+          message: `New signup details:
+Email: ${waitlistEntry.email}
+Name: ${waitlistEntry.name || 'Not provided'}
+Role: ${waitlistEntry.role || 'Not provided'}
+Engine: ${waitlistEntry.engine || 'Not provided'}
+Experience: ${waitlistEntry.experience || 'Not provided'}/10
+Use Case: ${waitlistEntry.useCase || 'Not provided'}
+Timestamp: ${waitlistEntry.timestamp}`,
+          _replyto: waitlistEntry.email,
+          _subject: 'New GenPlay Waitlist Signup',
+          _next: 'https://genplay.dev',
+          _confirmation: `Hi ${waitlistEntry.name || 'there'}!
+
+Thanks for joining the GenPlay beta waitlist! 🚀
+
+What happens next:
+• We'll email you when the MVP launches (~1 month)
+• You'll get early access before the public release  
+• Your feedback will help shape GenPlay's future
+• Join our community of game creators and educators
+
+Your signup details:
+Email: ${waitlistEntry.email}
+${waitlistEntry.name ? `Name: ${waitlistEntry.name}` : ''}
+${waitlistEntry.role ? `Role: ${waitlistEntry.role}` : ''}
+${waitlistEntry.engine ? `Engine: ${waitlistEntry.engine}` : ''}
+${waitlistEntry.experience ? `Experience: ${waitlistEntry.experience}/10` : ''}
+
+Questions? Reply to this email!
+
+Best regards,
+The GenPlay Team`
+        })
+      })
+
+      if (formspreeResponse.ok) {
+        emailsSent = true
+        emailResults.push('Formspree: Success')
+        console.log('✅ Formspree emails sent successfully')
+      } else {
+        emailResults.push(`Formspree: ${formspreeResponse.status} ${formspreeResponse.statusText}`)
+        console.log('❌ Formspree error:', formspreeResponse.status, formspreeResponse.statusText)
+      }
+    } catch (formspreeError) {
+      emailResults.push(`Formspree: ${formspreeError instanceof Error ? formspreeError.message : String(formspreeError)}`)
+      console.error('❌ Formspree error:', formspreeError)
+    }
+
+    // Method 2: Fallback to Resend (if configured)
+    console.log('📧 Checking Resend setup...', { 
       hasResendKey: !!process.env.RESEND_API_KEY,
       hasNotifyEmail: !!process.env.NOTIFY_EMAIL,
       notifyEmail: process.env.NOTIFY_EMAIL
     })
     
-    if (process.env.RESEND_API_KEY && process.env.NOTIFY_EMAIL) {
+    if (!emailsSent && process.env.RESEND_API_KEY && process.env.NOTIFY_EMAIL) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY)
         
@@ -209,15 +273,19 @@ export async function POST(request: NextRequest) {
         console.log('📧 Notification email result:', notificationResult)
         
         emailsSent = true
-        console.log('✅ Both confirmation and notification emails sent successfully')
+        emailResults.push('Resend: Success')
+        console.log('✅ Resend emails sent successfully as fallback')
       } catch (emailError) {
-        console.error('❌ Email error:', emailError)
-        storageResults.push(`Email error: ${emailError instanceof Error ? emailError.message : String(emailError)}`)
+        console.error('❌ Resend error:', emailError)
+        emailResults.push(`Resend: ${emailError instanceof Error ? emailError.message : String(emailError)}`)
       }
-    } else {
-      console.log('❌ No email configuration available')
-      storageResults.push('No email config')
+    } else if (!emailsSent) {
+      console.log('❌ No email configuration available and Formspree failed')
+      emailResults.push('No email config')
     }
+
+    // Log all email results
+    console.log('📧 Email summary:', emailResults.join(', '))
 
     // Return appropriate response based on what succeeded
     if (dataStored || emailsSent) {
@@ -228,7 +296,12 @@ export async function POST(request: NextRequest) {
       console.log(`✅ Waitlist signup successful: ${methods.join(' and ')}`)
       return NextResponse.json({ 
         ok: true, 
-        message: 'Successfully joined waitlist! Check your email for confirmation.' 
+        message: 'Successfully joined waitlist! Check your email for confirmation.',
+        details: {
+          dataStored,
+          emailsSent,
+          emailResults: emailResults.join(', ')
+        }
       })
     }
 
