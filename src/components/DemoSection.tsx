@@ -52,12 +52,12 @@ export function DemoSection({ onVideoOpen }: DemoSectionProps) {
               {/* Mobile direct link */}
               <div className="mt-4 sm:hidden">
                 <a 
-                  href="/demo.mp4" 
+                  href="https://www.youtube.com/watch?v=5LNEtzQtoMw" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-accent hover:text-green-400 text-sm underline transition-colors"
                 >
-                  View demo video directly
+                  View demo on YouTube
                 </a>
               </div>
             </div>
