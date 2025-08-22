@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://genplay.app',
+    url: 'https://genplay.dev',
     title: 'GenPlay - From prompt to playable in seconds',
     description: 'GenPlay turns plain English into a playable Unity scene. Great for students, designers, and rapid prototyping.',
     siteName: 'GenPlay',

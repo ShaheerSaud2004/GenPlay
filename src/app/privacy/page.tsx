@@ -86,7 +86,7 @@ export default function PrivacyPage() {
                     <li>Request a copy of your data</li>
                   </ul>
                   <p className="text-slate-300 leading-relaxed mt-4">
-                    To exercise these rights, email us at privacy@genplay.app
+                    To exercise these rights, email us at privacy@genplay.dev
                   </p>
                 </section>
 
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
                   </p>
                   <div className="mt-4 p-4 bg-card border border-slate-700 rounded-xl">
                     <p className="text-slate-300">
-                      Email: privacy@genplay.app<br />
+                      Email: privacy@genplay.dev<br />
                       Subject: Privacy Policy Question
                     </p>
                   </div>
