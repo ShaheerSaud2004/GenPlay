@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Github, Twitter, Play } from 'lucide-react'
+import { Play } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -92,31 +92,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-4 sm:mt-8 pt-3 sm:pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-          <p className="text-slate-400 text-xs sm:text-sm order-2 sm:order-1">
+        <div className="mt-4 sm:mt-8 pt-3 sm:pt-8 border-t border-slate-800 flex justify-center items-center">
+          <p className="text-slate-400 text-xs sm:text-sm">
             © {currentYear} GenPlay<span className="hidden sm:inline">. Built by Shaheer</span>.
           </p>
-          
-          <div className="flex items-center space-x-4 order-1 sm:order-2">
-            <a
-              href="https://twitter.com/genplay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-accent transition-colors"
-              aria-label="Follow on Twitter"
-            >
-              <Twitter className="h-4 w-4 sm:h-5 sm:w-5" />
-            </a>
-            <a
-              href="https://github.com/genplay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-accent transition-colors"
-              aria-label="View on GitHub"
-            >
-              <Github className="h-4 w-4 sm:h-5 sm:w-5" />
-            </a>
-          </div>
         </div>
       </div>
     </footer>
