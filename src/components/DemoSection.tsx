@@ -48,6 +48,18 @@ export function DemoSection({ onVideoOpen }: DemoSectionProps) {
                 <Play className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
                 Watch Demo (30 seconds)
               </Button>
+              
+              {/* Mobile direct link */}
+              <div className="mt-4 sm:hidden">
+                <a 
+                  href="/demo.mp4" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-green-400 text-sm underline transition-colors"
+                >
+                  View demo video directly
+                </a>
+              </div>
             </div>
           </div>
 
