@@ -9,7 +9,7 @@ interface VideoLightboxProps {
 
 export function VideoLightbox({ isOpen, onClose }: VideoLightboxProps) {
   // YouTube video ID for GenPlay demo
-  const YOUTUBE_VIDEO_ID = '5LNEtzQtoMw'
+  const YOUTUBE_VIDEO_ID = '89-7xspn04Y'
   
   return (
     <Modal 
