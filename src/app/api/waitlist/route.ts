@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
         console.log('✅ Waitlist data stored to Blob:', { jsonUrl, csvUrl })
       } catch (blobError) {
         console.error('❌ Blob storage error:', blobError)
-        storageResults.push(`Blob error: ${blobError.message}`)
+        storageResults.push(`Blob error: ${blobError instanceof Error ? blobError.message : String(blobError)}`)
       }
     } else {
       console.log('❌ No Blob token available')
@@ -212,7 +212,7 @@ export async function POST(request: NextRequest) {
         console.log('✅ Both confirmation and notification emails sent successfully')
       } catch (emailError) {
         console.error('❌ Email error:', emailError)
-        storageResults.push(`Email error: ${emailError.message}`)
+        storageResults.push(`Email error: ${emailError instanceof Error ? emailError.message : String(emailError)}`)
       }
     } else {
       console.log('❌ No email configuration available')
