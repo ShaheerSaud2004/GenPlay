@@ -17,8 +17,8 @@ export function CTASection({ onWaitlistOpen }: CTASectionProps) {
             </div>
           </div>
           
-          <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-            Ready to turn ideas into games?
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            Ready to turn <span className="bg-gradient-to-r from-accent to-green-400 bg-clip-text text-transparent">ideas into games</span>?
           </h2>
           
           <p className="text-xl text-slate-300 mb-10 leading-relaxed">

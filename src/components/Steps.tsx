@@ -26,8 +26,8 @@ export function Steps() {
     <section className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            How it works
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            How it <span className="bg-gradient-to-r from-accent to-green-400 bg-clip-text text-transparent">works</span>
           </h2>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             From idea to playable game in three simple steps

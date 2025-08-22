@@ -55,7 +55,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70 backdrop-blur-md"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -65,7 +65,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
         ref={modalRef}
         tabIndex={-1}
         className={cn(
-          'relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-card border border-slate-700 rounded-2xl shadow-2xl animate-slide-up',
+          'relative w-full max-w-md max-h-[95vh] overflow-y-auto bg-card border border-slate-700 rounded-2xl shadow-2xl animate-slide-up',
           className
         )}
       >
