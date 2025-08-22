@@ -72,43 +72,16 @@ export async function POST(request: NextRequest) {
       ip: ip.slice(0, 10), // Partial IP for privacy
     }
 
-    // Store data locally for development and as backup
+    // Storage methods
     let dataStored = false
-    
-    // Local JSON storage (works immediately in development)
-    try {
-      const dataDir = join(process.cwd(), 'data')
-      const filePath = join(dataDir, 'waitlist.json')
-      
-      // Ensure directory exists
-      if (!existsSync(dataDir)) {
-        require('fs').mkdirSync(dataDir, { recursive: true })
-      }
-      
-      // Read existing data
-      let existingData = []
-      if (existsSync(filePath)) {
-        try {
-          const fileContent = readFileSync(filePath, 'utf8')
-          existingData = JSON.parse(fileContent)
-        } catch {
-          existingData = []
-        }
-      }
-      
-      // Add new entry
-      existingData.push(waitlistEntry)
-      
-      // Write back to file
-      writeFileSync(filePath, JSON.stringify(existingData, null, 2))
-      
-      dataStored = true
-      console.log(`✅ Waitlist data stored locally (${existingData.length} total signups)`)
-    } catch (localError) {
-      console.error('❌ Local storage error:', localError)
-    }
+    const storageResults = []
 
     // Try Vercel Blob for production storage
+    console.log('🔍 Checking Blob storage...', { 
+      hasToken: !!process.env.BLOB_READ_WRITE_TOKEN,
+      tokenLength: process.env.BLOB_READ_WRITE_TOKEN?.length || 0
+    })
+    
     if (process.env.BLOB_READ_WRITE_TOKEN && process.env.BLOB_READ_WRITE_TOKEN !== 'placeholder_for_vercel_blob') {
       try {
         // Create CSV row
@@ -169,6 +142,12 @@ export async function POST(request: NextRequest) {
 
     // Always try to send emails (regardless of blob storage)
     let emailsSent = false
+    console.log('📧 Checking email setup...', { 
+      hasResendKey: !!process.env.RESEND_API_KEY,
+      hasNotifyEmail: !!process.env.NOTIFY_EMAIL,
+      notifyEmail: process.env.NOTIFY_EMAIL
+    })
+    
     if (process.env.RESEND_API_KEY && process.env.NOTIFY_EMAIL) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY)
