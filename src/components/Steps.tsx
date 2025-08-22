@@ -34,7 +34,8 @@ export function Steps() {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-8 md:gap-4">
+        {/* Desktop Layout */}
+        <div className="hidden md:flex items-center justify-center max-w-6xl mx-auto gap-4">
           {steps.map((step, index) => {
             const Icon = step.icon
             return (
@@ -59,16 +60,46 @@ export function Steps() {
                   </div>
                 </div>
 
-                {/* Arrow */}
+                {/* Desktop Arrow */}
                 {index < steps.length - 1 && (
-                  <div className="hidden md:flex items-center justify-center mx-6">
+                  <div className="flex items-center justify-center mx-6">
                     <ArrowRight className="h-8 w-8 text-accent animate-pulse" strokeWidth={2} />
                   </div>
                 )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden flex flex-col items-center justify-center max-w-md mx-auto">
+          {steps.map((step, index) => {
+            const Icon = step.icon
+            return (
+              <div key={index} className="flex flex-col items-center">
+                {/* Step Card */}
+                <div className="text-center group animate-slide-up" style={{ animationDelay: `${index * 0.2}s` }}>
+                  <div className="bg-card border border-slate-700 rounded-3xl p-8 group-hover:border-slate-600 transition-all duration-300 shadow-xl group-hover:shadow-2xl group-hover:scale-105 flex flex-col items-center justify-center min-h-[300px] w-[280px]">
+                    {/* Icon container */}
+                    <div className="mb-6 w-20 h-20 bg-accent rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                      <Icon className="h-10 w-10 text-background" strokeWidth={1.5} />
+                    </div>
+                    
+                    {/* Text content */}
+                    <div className="text-center">
+                      <h3 className="text-2xl font-semibold text-white mb-4">
+                        {step.title}
+                      </h3>
+                      <p className="text-slate-300 leading-relaxed text-base">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Mobile Arrow (below cards) */}
                 {index < steps.length - 1 && (
-                  <div className="md:hidden flex items-center justify-center my-4 rotate-90">
+                  <div className="flex items-center justify-center my-6 rotate-90">
                     <ArrowRight className="h-8 w-8 text-accent animate-pulse" strokeWidth={2} />
                   </div>
                 )}
