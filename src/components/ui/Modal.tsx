@@ -88,7 +88,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
         )}
         
         {/* Content */}
-        <div className={cn('p-6', title && 'pt-0')}>
+        <div className={cn('p-6', title ? 'pt-0' : undefined)}>
           {children}
         </div>
       </div>

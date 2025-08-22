@@ -50,8 +50,8 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
       className={cn(
         'flex items-center gap-3 p-4 bg-card border rounded-2xl shadow-lg transition-all duration-300 min-w-80',
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full',
-        toast.type === 'success' && 'border-accent',
-        toast.type === 'error' && 'border-red-500'
+        toast.type === 'success' ? 'border-accent' : undefined,
+        toast.type === 'error' ? 'border-red-500' : undefined
       )}
     >
       {toast.type === 'success' && (
