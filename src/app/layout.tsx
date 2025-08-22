@@ -18,18 +18,18 @@ export const metadata: Metadata = {
     siteName: 'GenPlay',
     images: [
       {
-        url: '/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'GenPlay - From prompt to playable in seconds',
+        url: '/genplay-logo.png',
+        width: 512,
+        height: 512,
+        alt: 'GenPlay Logo',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'GenPlay - From prompt to playable in seconds',
     description: 'GenPlay turns plain English into a playable Unity scene. Great for students, designers, and rapid prototyping.',
-    images: ['/og.png'],
+    images: ['/genplay-logo.png'],
   },
   robots: {
     index: true,
