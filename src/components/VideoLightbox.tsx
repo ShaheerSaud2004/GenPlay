@@ -45,7 +45,20 @@ export function VideoLightbox({ isOpen, onClose }: VideoLightboxProps) {
         
         {/* Video Info - Compact */}
         <div className="mt-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 mb-3">
+          {/* YouTube link for mobile - only show on small screens */}
+          <div className="sm:hidden mb-3">
+            <a 
+              href={`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-accent hover:text-green-400 text-sm underline transition-colors"
+            >
+              Watch on YouTube
+            </a>
+          </div>
+          
+          {/* Live Demo badge for larger screens */}
+          <div className="hidden sm:inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 mb-3">
             <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
             <span className="text-accent text-xs font-medium">Live Demo</span>
           </div>
