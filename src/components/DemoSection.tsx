@@ -24,7 +24,7 @@ export function DemoSection({ onVideoOpen }: DemoSectionProps) {
           <div className="relative group cursor-pointer" onClick={onVideoOpen}>
             <div className="relative inline-block rounded-2xl overflow-hidden border border-slate-700 group-hover:border-accent/50 transition-colors">
               <Image
-                src="/Thumbnail.png"
+                src="/thumnail.png"
                 alt="GenPlay Demo Thumbnail"
                 width={1280}
                 height={720}
